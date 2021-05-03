@@ -13,6 +13,12 @@ class Auth extends CI_Controller
         $this->load->model('Auth_model');
 
         // var_dump($this->session->all_userdata());die();
+
+        if ($this->session->userdata('id_role') == 2) {
+            redirect('Admin_home');
+        } elseif ($this->session->userdata('id_role') == 1) {
+            redirect('');
+        }
     }
 
     public function index()
@@ -235,22 +241,6 @@ class Auth extends CI_Controller
 
         return $alert;
 
-    }
-
-    public function logout()
-    {
-
-        // $this->session->sess_destroy();
-
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('nim');
-        $this->session->unset_userdata('id_role');
-        $this->session->unset_userdata('id_user');
-
-        $pesan = $this->alert('Hallo!', 'success', "Anda terlah berhasil keluar!");
-        $this->session->set_flashdata('alert', $pesan);
-
-        redirect('auth');
     }
 
 }

@@ -19,4 +19,28 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+    <script type="text/javascript">
+$(document).ready(function() {
+
+    var html =
+        '<tr><td><input class="form-control" type="text" name="judul_bahan[]" required=""></td><td><input class="form-control" type="text" name="keterangan_bahan[]" required=""></td><td><input class="form-control-file" type="file" name="foto_bahan[]" required=""></td><td><input type="button" name="remove" id="remove" value="Hapus" class="btn btn-danger"></td></tr>';
+
+    var max = 19;
+    var x = 1;
+
+    $("#add").click(function() {
+        if (x <= max) {
+            $("#table_field").append(html);
+            x++;
+        }
+    });
+
+    $("#table_field").on('click', '#remove', function() {
+        $(this).closest('tr').remove();
+        x--;
+    });
+
+})
+    </script>
+
     </html>
