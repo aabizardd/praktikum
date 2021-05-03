@@ -75,7 +75,7 @@ $query_builder = true;
 
 $db['default'] = array(
     'dsn' => '',
-    'hostname' => 'localhost',
+    'hostname' => 'databases.000webhost.com',
     'username' => 'id16647458_localhost',
     'password' => '$XSa7>6eXy$B+XX',
     'database' => 'id16647458_praktikum',
