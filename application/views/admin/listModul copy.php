@@ -40,23 +40,14 @@
 
                     </div>
 
-                    <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
-
-
                     <div class="card">
 
                         <div class="card-body">
 
                             <div class="row">
 
-                                <?php if (empty($moduls)) : ?>
-                                <img src="<?= base_url('assets_praktikum/img_lain/no_file.png') ?>" alt="" width="500"
-                                    class="rounded mx-auto d-block">
-                                <?php endif; ?>
 
                                 <?php foreach ($moduls as $modul) : ?>
-
-
 
 
                                 <div class="col-md-2 mb-3">
@@ -71,17 +62,18 @@
                                             <h5 class="card-title"><?= $modul['judul_praktikum'] ?></h5>
                                             <p><?= $modul['tujuan_praktikum'] ?></p>
 
-                                            <a href="<?= base_url('admin_listmodul/detail_modul/') . $modul['id_praktikum'] ?>"
+                                            <a href="<?= base_url('admin_listmodul/') . $modul['id_praktikum'] ?>"
                                                 class="btn btn-primary"><i class="fas fa-info-circle"></i> Detail</a>
 
-                                            <a class="btn btn-danger tombol-hapus" id="tombol-hapus" type="button"
-                                                href="<?= base_url('admin_listmodul/hapus_modul/') . $modul['id_praktikum'] ?>">
+                                            <button class="btn btn-danger tombol-hapus" id="tombol-hapus" type="button">
                                                 <i class="fas fa-trash"></i>
                                                 Hapus
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
+
+
 
 
                                 <?php endforeach; ?>
@@ -149,51 +141,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

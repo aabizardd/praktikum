@@ -77,14 +77,14 @@ class Auth extends CI_Controller
                 }
             } else {
 
-                $pesan = $this->alert('Maaf!', 'danger', "Email belum aktif!");
+                $pesan = $this->alert('Maaf!', 'danger', "Email dengan NIM tersebut belum aktif!");
                 $this->session->set_flashdata('alert', $pesan);
 
                 redirect('auth');
             }
         } else {
 
-            $pesan = $this->alert('Maaf!', 'danger', "Email belum terdaftar!");
+            $pesan = $this->alert('Maaf!', 'danger', "NIM belum terdaftar!");
             $this->session->set_flashdata('alert', $pesan);
 
             redirect('auth');

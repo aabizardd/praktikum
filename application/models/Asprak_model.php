@@ -7,28 +7,50 @@ class Asprak_model extends CI_model
     {
 
         return $this->db->insert($table, $data);
-
     }
 
     public function get($table)
     {
 
         return $this->db->get($table);
-
     }
 
     public function get_where($table, $wehre)
     {
 
-        return $this->db->insert($table, $wehre);
-
+        return $this->db->get_where($table, $wehre);
     }
 
     public function count_all_results($table)
     {
 
-        return $this->db->count_all_results($table, false);
-
+        return $this->db->count_all_results($table);
     }
 
+    public function get_limit($table, $limit, $start, $keyword = null)
+    {
+
+        if ($keyword) {
+            $this->db->like('judul_praktikum', $keyword);
+        }
+
+        return $this->db->get($table, $limit, $start);
+    }
+
+    public function num_rows($table)
+    {
+
+        return $this->db->get($table)->num_rows();
+    }
+
+    public function delete($table, $where)
+    {
+        return $this->db->delete($table, $where);
+    }
+
+    public function update($table, $data, $where)
+    {
+
+        return $this->db->update($table, $data, $where);
+    }
 }

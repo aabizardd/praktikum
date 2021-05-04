@@ -22,6 +22,7 @@ class Admin_home extends CI_Controller
         $data['test'] = "hello";
 
         $data['jumlah_praktikan'] = $this->Asprak_model->count_all_results('tb_praktikan');
+        $data['jumlah_modul'] = $this->Asprak_model->count_all_results('tb_praktikum');
 
         $this->load->view('template/header', $data);
         $this->load->view('admin/home', $data);

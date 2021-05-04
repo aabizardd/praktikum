@@ -3,7 +3,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?php include "sidebar.php";?>
+        <?php include "sidebar.php"; ?>
 
 
         <!-- Content Wrapper -->
@@ -12,7 +12,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                <?php include "topbar.php";?>
+                <?php include "topbar.php"; ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid mb-5">
@@ -26,27 +26,31 @@
                     <div class="row mt-0">
                         <div class=" col-lg-6 mt-2">
 
-                            <?=$this->session->flashdata('alert')?>
 
-                            <?=form_error('judul_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
+
+
+
+
+                            <?= form_error('judul_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>');?>
+									</button></div>'); ?>
 
-                            <?=form_error('praktikum_ke', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= form_error('praktikum_ke', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>');?>
+									</button></div>'); ?>
 
-                            <?=form_error('tujuan_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= form_error('tujuan_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>');?>
+									</button></div>'); ?>
 
-                            <?=form_error('materi_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= form_error('materi_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>');?>
+									</button></div>'); ?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -96,7 +100,7 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <form action="<?=base_url('admin_home/tambahDataBahan')?>" method="POST"
+                                    <form action="<?= base_url('admin_tambahmodul/tambahDataBahan') ?>" method="POST"
                                         class="insert-from" id="insert_form" enctype="multipart/form-data">
 
                                         <div class="form-group">
@@ -105,11 +109,11 @@
                                                 <select class="custom-select" id="inputGroupSelect02"
                                                     name="id_praktikum" required>
                                                     <option value="" selected>Pilih...</option>
-                                                    <?php foreach ($modul_praktikum as $item): ?>
-                                                    <option value="<?=$item->id_praktikum?>">
-                                                        <?="Praktikum " . $item->id_praktikum . " (" . $item->judul_praktikum . ")"?>
+                                                    <?php foreach ($modul_praktikum as $item) : ?>
+                                                    <option value="<?= $item->id_praktikum ?>">
+                                                        <?= "Praktikum " . $item->id_praktikum . " (" . $item->judul_praktikum . ")" ?>
                                                     </option>
-                                                    <?php endforeach;?>
+                                                    <?php endforeach; ?>
 
                                                 </select>
 
@@ -194,11 +198,50 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+         </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?=base_url('admin_home/logout')?>">Logout</a>
+                    <a class="btn btn-primary" href="<?= base_url('admin_home/logout') ?>">Logout</a>
                 </div>
             </div>
         </div>
