@@ -53,4 +53,14 @@ class Asprak_model extends CI_model
 
         return $this->db->update($table, $data, $where);
     }
+
+    public function getDetailInfoAsprak()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_admin');
+        $this->db->join('tb_user', 'tb_admin.id_user = tb_user.id_user');
+        $this->db->where('tb_admin.id_user', $this->session->userdata('id_user'));
+        return $this->db->get();
+
+    }
 }

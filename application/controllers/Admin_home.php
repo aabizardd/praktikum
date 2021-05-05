@@ -12,7 +12,22 @@ class Admin_home extends CI_Controller
         //load models
         $this->load->model('Asprak_model');
 
-        // var_dump($this->session->all_userdata());die();
+        if (!$this->session->userdata('id_role')) {
+            redirect('auth');
+        } else {
+
+            if ($this->session->userdata('id_role') == 1) {
+                redirect('praktikan_home');
+            }
+
+        }
+
+        $info_asprak = $this->Asprak_model->get('tb_admin', ['id_user' => $this->session->userdata('id_user')])->row_array();
+
+        // var_dump($info_asprak['foto_profile']);die();
+        $this->session->set_userdata('foto_profile', $info_asprak['foto_profile']);
+
+        // var_dump($this->session->userdata('foto_profile'));die();
 
     }
 
@@ -189,6 +204,7 @@ class Admin_home extends CI_Controller
         $this->session->unset_userdata('nim');
         $this->session->unset_userdata('id_role');
         $this->session->unset_userdata('id_user');
+        $this->session->unset_userdata('foto_profile');
 
         redirect('auth');
     }

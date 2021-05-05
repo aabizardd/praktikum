@@ -17,6 +17,9 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid mb-5">
 
+                    <a class="btn btn-danger mb-2" href="<?=base_url('admin_listmodul')?>"><i
+                            class="fas fa-arrow-left"></i> Back</a>
+
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Detail Modul
@@ -27,6 +30,7 @@
                     </div>
 
                     <div class="flash-data" data-flashdata="<?=$this->session->flashdata('flash');?>"></div>
+                    <div class="flash-data-error" data-flashdata="<?=$this->session->flashdata('flash-error');?>"></div>
 
                     <?=form_error('judul_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -150,6 +154,16 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
 
+                                    <a href="<?=base_url('admin_tambahmodul')?>" class="btn btn-primary mb-2"><i
+                                            class="fas fa-plus"></i> Tambah Data Bahan Modul
+                                    </a>
+
+
+
+                                    <?php if (empty($bahan_praktikum)): ?>
+                                    <img src="<?=base_url('assets_praktikum/img_lain/no_file.png')?>" alt="" width="500"
+                                        class="rounded mx-auto d-block">
+                                    <?php endif;?>
 
                                     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                                         <ol class="carousel-indicators">
@@ -172,6 +186,7 @@
                                         </ol>
                                         <div class="carousel-inner">
 
+
                                             <?php $nomor = -1;foreach ($bahan_praktikum as $br): ?>
 
                                             <?php $nomor++;?>
@@ -180,14 +195,33 @@
 
                                                 <h6 class="position-absolute text-white mt-4"
                                                     style="left: 50%;transform: translateX(-50%);">
-                                                    <strong
-                                                        class="text-white bg-dark p-2 "><?=$br->judul_bahan?></strong>
+                                                    <strong class="text-dark bg-white p-2"
+                                                        style="border-radius: 20px;"><?=$br->judul_bahan?></strong>
                                                 </h6>
-                                                <button class="btn btn-outline-info position-absolute"
-                                                    data-toggle="modal" data-target="#exampleModal"
-                                                    style="margin-top: 70px;left: 50%;transform: translateX(-50%);"><i
-                                                        class="fas fa-edit"></i>
-                                                    Edit</button>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <button class="btn btn-outline-info position-absolute editbahan"
+                                                            data-toggle="modal" data-target="#exampleModal"
+                                                            data-judul="<?=$br->judul_bahan?>"
+                                                            data-keterangan="<?=$br->keterangan_bahan?>"
+                                                            data-gambar="<?=$br->foto_bahan?>"
+                                                            data-idbahan="<?=$br->id_bahan?>"
+                                                            style="margin-top: 70px;left: 50%;transform: translateX(-50%);"><i
+                                                                class="fas fa-edit"></i>
+                                                            Edit
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <a class="btn btn-outline-danger position-absolute hapusbahan"
+                                                            style="margin-top: 70px;left: 50%;transform: translateX(-50%);"
+                                                            href="<?=base_url('admin_listmodul/hapus_bahan/') . $br->foto_bahan . '/' . $br->id_bahan . "/" . $this->uri->segment(3)?>">
+                                                            <i class="fas fa-trash"></i>
+                                                            Hapus
+                                                        </a>
+                                                    </div>
+                                                </div>
+
 
 
 
@@ -195,7 +229,8 @@
                                                     class="d-block w-100" alt="...">
                                                 <div class="carousel-caption d-none d-md-block">
 
-                                                    <p><?=$br->keterangan_bahan?></p>
+                                                    <p class="bg-white text-dark" style="border-radius: 20px;">
+                                                        <?=$br->keterangan_bahan?></p>
                                                     <!-- <p><button class="btn btn-primary">Edit</button></p> -->
                                                 </div>
                                             </div>
@@ -267,20 +302,73 @@
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Bahan Praktikum</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="modal-body" id="modal-view">
+
+                            <div class="row">
+                                <div class="col-sm-5">
+
+                                    <img src="<?=base_url('assets_praktikum/img_lain/no_file.png')?>" alt=""
+                                        class="rounded mx-auto d-block img-preview" width="300" height="300"
+                                        id="gambar">
+
+                                </div>
+
+                                <div class="col-sm-7 mt-2">
+
+                                    <form method="POST" action="<?=base_url('admin_listmodul/update_bahan/')?>"
+                                        enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Judul Bahan</label>
+                                            <input type="text" class="form-control" id="judul"
+                                                aria-describedby="emailHelp" name="judul_bahan" autocomplete="off">
+                                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                                email with anyone else.</small> -->
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Keteranan Bahan</label>
+                                            <input type="text" class="form-control" id="keterangan"
+                                                aria-describedby="emailHelp" name="keterangan_bahan" autocomplete="off">
+                                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                                email with anyone else.</small> -->
+                                        </div>
+
+                                        <input type="hidden" value="asdsa" id="id_bahan" name="id_bahan">
+                                        <input type="hidden" id="foto_old" name="foto_bahan">
+                                        <input type="hidden" name="id_praktikum" value="<?=$this->uri->segment(3)?>">
+
+
+
+                                        <div class="form-group">
+
+                                            <label for="exampleInputEmail1">Foto Barang</label>
+
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="file" id="sampul"
+                                                    aria-describedby="inputGroupFileAddon01" onchange="preview_img()">
+                                                <label class="custom-file-label" for="inputGroupFile01">
+                                                    Choose file</label>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-primary float-right" type="submit" name="submit">Simpan
+                                            Perubahan</button>
+
+
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -296,65 +384,24 @@
                 </div>
             </footer>
 
+            <script>
+            function preview_img() {
 
+                const sampul = document.querySelector('#sampul');
+                const sampulLabel = document.querySelector('.custom-file-label');
+                const imgPreview = document.querySelector('.img-preview');
 
+                sampulLabel.textContent = sampul.files[0].name;
 
+                const fileSampul = new FileReader();
+                fileSampul.readAsDataURL(sampul.files[0]);
 
+                fileSampul.onload = function(e) {
+                    imgPreview.src = e.target.result;
+                }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+            </script>
 
 
             <!-- End of Footer -->
@@ -369,6 +416,12 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+
+
+
+
+
 
 
 

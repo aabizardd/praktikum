@@ -14,6 +14,16 @@ class Admin_listmodul extends CI_Controller
 
         // var_dump($this->session->all_userdata());die();
 
+        if (!$this->session->userdata('id_role')) {
+            redirect('auth');
+        } else {
+
+            if ($this->session->userdata('id_role') == 1) {
+                redirect('praktikan_home');
+            }
+
+        }
+
     }
 
     public function index()
@@ -37,7 +47,7 @@ class Admin_listmodul extends CI_Controller
         $this->db->from('tb_praktikum');
         $config['total_rows'] = $this->db->count_all_results();
         $data['total_rows'] = $config['total_rows'];
-        $config['per_page'] = 12;
+        $config['per_page'] = 3;
 
         //initialize
         $this->pagination->initialize($config);
@@ -76,6 +86,100 @@ class Admin_listmodul extends CI_Controller
         }
     }
 
+    public function update_bahan()
+    {
+
+        $judul_bahan = $this->input->post('judul_bahan');
+        $keterangan_bahan = $this->input->post('keterangan_bahan');
+        $id_bahan = $this->input->post('id_bahan');
+        $foto_bahan_lama = $this->input->post('foto_bahan');
+
+        $foto_bahan_baru = $_FILES['file']['name'];
+        $id_praktikum = $this->input->post('id_praktikum');
+
+        $data = [];
+
+        if ($foto_bahan_baru) {
+
+            $file = 'assets_praktikum/img_bahan_modul/' . $foto_bahan_lama;
+
+            $data = [
+                'judul_bahan' => $judul_bahan,
+                'keterangan_bahan' => $keterangan_bahan,
+                'foto_bahan' => $this->_uploadFile($id_praktikum, $file),
+            ];
+
+        } else {
+
+            $data = [
+                'judul_bahan' => $judul_bahan,
+                'keterangan_bahan' => $keterangan_bahan,
+                'foto_bahan' => $foto_bahan_lama,
+            ];
+
+        }
+
+        // $data = [
+        //     'judul_bahan' => $judul_bahan,
+        //     'keterangan_bahan' => $keterangan_bahan,
+        //     'foto_bahan' => $foto_bahan,
+        // ];
+        $where = ['id_bahan' => $id_bahan];
+
+        $this->asprak->update('tb_bahan_praktikum', $data, $where);
+
+        $this->session->set_flashdata('flash', "Data Bahan Praktikum Berhasil Diubah");
+
+        redirect("Admin_listmodul/detail_modul/$id_praktikum");
+
+    }
+
+    private function _uploadFile($id_praktikum, $file)
+    {
+
+        $namaFiles = $_FILES['file']['name'];
+        $ukuranFile = $_FILES['file']['size'];
+        $type = $_FILES['file']['type'];
+        $eror = $_FILES['file']['error'];
+        $tmpName = $_FILES['file']['tmp_name'];
+
+        // var_dump($namaFiles);die();
+
+        if ($eror === 4) {
+
+            $this->session->set_flashdata('flash-error', "Error upload");
+
+            redirect("admin_listmodul/detail_modul/$id_praktikum");
+
+            return false;
+        }
+
+        $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+        $ekstensiGambar = explode('.', $namaFiles);
+        $ekstensiGambar = strtolower(end($ekstensiGambar));
+        if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+
+            $this->session->set_flashdata('flash-error', "Yang kamu pilih mungkin bukan gambar?");
+
+            redirect("admin_listmodul/detail_modul/$id_praktikum");
+
+            return false;
+        }
+
+        if (is_readable($file) && unlink($file)) {
+
+            $namaFilesBaru = uniqid();
+            $namaFilesBaru .= '.';
+            $namaFilesBaru .= $ekstensiGambar;
+
+            move_uploaded_file($tmpName, 'assets_praktikum/img_bahan_modul/' . $namaFilesBaru);
+
+            return $namaFilesBaru;
+
+        }
+
+    }
+
     public function updateaDataModul($id)
     {
 
@@ -110,6 +214,23 @@ class Admin_listmodul extends CI_Controller
         $this->session->set_flashdata('flash', "Data Praktikum Berhasil Dihapus!");
 
         redirect('Admin_listmodul');
+    }
+
+    public function hapus_bahan($filename, $id_bahan, $id_praktikum)
+    {
+
+        $file = 'assets_praktikum/img_bahan_modul/' . $filename;
+
+        if (is_readable($file) && unlink($file)) {
+
+            $where = ['id_bahan' => $id_bahan];
+
+            $this->asprak->delete('tb_bahan_praktikum', $where);
+
+            $this->session->set_flashdata('flash', "Data Bahan Praktikum Berhasil Dihapus");
+
+            redirect("Admin_listmodul/detail_modul/$id_praktikum");
+        }
     }
 
     public function alert($kata_depan = "", $warna, $isi)

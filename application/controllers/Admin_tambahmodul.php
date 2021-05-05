@@ -4,159 +4,168 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Admin_tambahmodul extends CI_Controller
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->library('form_validation');
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
 
-		//load models
-		$this->load->model('Asprak_model');
+        //load models
+        $this->load->model('Asprak_model');
 
-		// var_dump($this->session->all_userdata());die();
+        // var_dump($this->session->all_userdata());die();
 
-	}
+        if (!$this->session->userdata('id_role')) {
+            redirect('auth');
+        } else {
 
-	public function index()
-	{
+            if ($this->session->userdata('id_role') == 1) {
+                redirect('praktikan_home');
+            }
 
-		$this->form_validation->set_rules('judul_praktikum', 'Judul Praktikum', 'required');
-		$this->form_validation->set_rules('praktikum_ke', 'Praktikum Berapa', 'required');
-		$this->form_validation->set_rules('tujuan_praktikum', 'Tujuan Praktikum', 'required');
-		$this->form_validation->set_rules('materi_praktikum', 'Materi Praktikum', 'required');
+        }
 
-		$data['modul_praktikum'] = $this->Asprak_model->get('tb_praktikum')->result();
+    }
 
-		if ($this->form_validation->run() == false) {
-			$this->load->view('template/header');
-			$this->load->view('admin/tambahModul', $data);
-			$this->load->view('template/footer');
-		} else {
-			$this->tambahDataModul();
-		}
-	}
+    public function index()
+    {
 
-	public function tambahDataModul()
-	{
+        $this->form_validation->set_rules('judul_praktikum', 'Judul Praktikum', 'required');
+        $this->form_validation->set_rules('praktikum_ke', 'Praktikum Berapa', 'required');
+        $this->form_validation->set_rules('tujuan_praktikum', 'Tujuan Praktikum', 'required');
+        $this->form_validation->set_rules('materi_praktikum', 'Materi Praktikum', 'required');
 
-		$judul_praktikum = $this->input->post('judul_praktikum');
-		$praktikum_ke = $this->input->post('praktikum_ke');
-		$tujuan_praktikum = $this->input->post('tujuan_praktikum');
-		$materi_praktikum = $this->input->post('materi_praktikum');
+        $data['modul_praktikum'] = $this->Asprak_model->get('tb_praktikum')->result();
 
-		$data = [
-			'judul_praktikum' => $judul_praktikum,
-			'praktikum_ke' => $praktikum_ke,
-			'tujuan_praktikum' => $tujuan_praktikum,
-			'materi_praktikum' => $materi_praktikum,
-		];
+        if ($this->form_validation->run() == false) {
+            $this->load->view('template/header');
+            $this->load->view('admin/tambahModul', $data);
+            $this->load->view('template/footer');
+        } else {
+            $this->tambahDataModul();
+        }
+    }
 
-		$this->Asprak_model->insert('tb_praktikum', $data);
+    public function tambahDataModul()
+    {
 
+        $judul_praktikum = $this->input->post('judul_praktikum');
+        $praktikum_ke = $this->input->post('praktikum_ke');
+        $tujuan_praktikum = $this->input->post('tujuan_praktikum');
+        $materi_praktikum = $this->input->post('materi_praktikum');
 
-		$this->session->set_flashdata('flash', "Data Praktikum Berhasil Ditambahkan, Silahkan Untuk Menambahkan Bahan-Bahan Praktikum nya");
+        $data = [
+            'judul_praktikum' => $judul_praktikum,
+            'praktikum_ke' => $praktikum_ke,
+            'tujuan_praktikum' => $tujuan_praktikum,
+            'materi_praktikum' => $materi_praktikum,
+        ];
 
-		redirect('Admin_tambahmodul');
-	}
+        $this->Asprak_model->insert('tb_praktikum', $data);
 
-	public function tambahDataBahan()
-	{
+        $this->session->set_flashdata('flash', "Data Praktikum Berhasil Ditambahkan, Silahkan Untuk Menambahkan Bahan-Bahan Praktikum nya");
 
-		$id_praktikum = $this->input->post('id_praktikum');
-		$judul_bahan = $this->input->post('judul_bahan');
-		$keterangan_bahan = $this->input->post('keterangan_bahan');
-		// $foto_bahan = ;
+        redirect('Admin_tambahmodul');
+    }
 
-		foreach ($judul_bahan as $key => $value) {
+    public function tambahDataBahan()
+    {
 
-			$data = [
-				'judul_bahan' => $value,
-				'keterangan_bahan' => $keterangan_bahan[$key],
-				'foto_bahan' => $this->_uploadFile($key, $id_praktikum),
-				'id_praktikum' => $id_praktikum,
-			];
+        $id_praktikum = $this->input->post('id_praktikum');
+        $judul_bahan = $this->input->post('judul_bahan');
+        $keterangan_bahan = $this->input->post('keterangan_bahan');
+        // $foto_bahan = ;
 
-			$this->Asprak_model->insert('tb_bahan_praktikum', $data);
-		}
+        foreach ($judul_bahan as $key => $value) {
 
-		// $flahdata = $this->alert('Salamat', 'success', 'Bahan Praktikum Berhasil Ditambahkan!');
+            $data = [
+                'judul_bahan' => $value,
+                'keterangan_bahan' => $keterangan_bahan[$key],
+                'foto_bahan' => $this->_uploadFile($key, $id_praktikum),
+                'id_praktikum' => $id_praktikum,
+            ];
 
-		$this->session->set_flashdata('flash', "Bahan Praktikum Berhasil Ditambahkan!");
+            $this->Asprak_model->insert('tb_bahan_praktikum', $data);
+        }
 
-		redirect('Admin_tambahmodul');
-	}
+        // $flahdata = $this->alert('Salamat', 'success', 'Bahan Praktikum Berhasil Ditambahkan!');
 
-	public function list_modul()
-	{
+        $this->session->set_flashdata('flash', "Bahan Praktikum Berhasil Ditambahkan!");
 
-		$this->load->view('template/header');
-		$this->load->view('admin/listModul');
-		$this->load->view('template/footer');
-	}
+        redirect('Admin_tambahmodul');
+    }
 
-	private function _uploadFile($key, $praktikum)
-	{
-		$namaFiles = $_FILES['foto_bahan']['name'][$key];
-		$ukuranFile = $_FILES['foto_bahan']['size'][$key];
-		$type = $_FILES['foto_bahan']['type'][$key];
-		$eror = $_FILES['foto_bahan']['error'][$key];
+    public function list_modul()
+    {
 
-		// $nama_file = str_replace(" ", "_", $namaFiles);
-		$tmpName = $_FILES['foto_bahan']['tmp_name'][$key];
-		// $nama_folder = "assets_user/file_upload/";
-		// $file_baru = $nama_folder . basename($nama_file);
+        $this->load->view('template/header');
+        $this->load->view('admin/listModul');
+        $this->load->view('template/footer');
+    }
 
-		// if ((($type == "video/mp4") || ($type == "video/3gpp")) && ($ukuranFile < 8000000)) {
+    private function _uploadFile($key, $praktikum)
+    {
+        $namaFiles = $_FILES['foto_bahan']['name'][$key];
+        $ukuranFile = $_FILES['foto_bahan']['size'][$key];
+        $type = $_FILES['foto_bahan']['type'][$key];
+        $eror = $_FILES['foto_bahan']['error'][$key];
 
-		//   move_uploaded_file($tmpName, $file_baru);
-		//   return $file_baru;
-		// }
+        // $nama_file = str_replace(" ", "_", $namaFiles);
+        $tmpName = $_FILES['foto_bahan']['tmp_name'][$key];
+        // $nama_folder = "assets_user/file_upload/";
+        // $file_baru = $nama_folder . basename($nama_file);
 
-		// var_dump($namaFiles);die();
+        // if ((($type == "video/mp4") || ($type == "video/3gpp")) && ($ukuranFile < 8000000)) {
 
-		if ($eror === 4) {
-			$flahdata = $this->alert('Maaf', 'danger', 'Gagal Mengunggah Gambar!');
+        //   move_uploaded_file($tmpName, $file_baru);
+        //   return $file_baru;
+        // }
 
-			$this->session->set_flashdata('alert', $flahdata);
+        // var_dump($namaFiles);die();
 
-			redirect('admin_home/tambah_modul');
-			return false;
-		}
+        if ($eror === 4) {
+            $flahdata = $this->alert('Maaf', 'danger', 'Gagal Mengunggah Gambar!');
 
-		$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+            $this->session->set_flashdata('alert', $flahdata);
 
-		$ekstensiGambar = explode('.', $namaFiles);
-		// var_dump($namaFiles);die();
+            redirect('admin_home/tambah_modul');
+            return false;
+        }
 
-		$ekstensiGambar = strtolower(end($ekstensiGambar));
-		if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
-			$flahdata = $this->alert('Maaf', 'danger', 'Ada File yang Kamu Upload Bukan Gambar!');
+        $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
 
-			$this->session->set_flashdata('alert', $flahdata);
+        $ekstensiGambar = explode('.', $namaFiles);
+        // var_dump($namaFiles);die();
 
-			redirect('admin_home/tambah_modul');
-			return false;
-		}
+        $ekstensiGambar = strtolower(end($ekstensiGambar));
+        if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+            $flahdata = $this->alert('Maaf', 'danger', 'Ada File yang Kamu Upload Bukan Gambar!');
 
-		$namaFilesBaru = "bahan_prak$praktikum-";
-		$namaFilesBaru .= uniqid();
-		$namaFilesBaru .= '.';
-		$namaFilesBaru .= $ekstensiGambar;
+            $this->session->set_flashdata('alert', $flahdata);
 
-		move_uploaded_file($tmpName, 'assets_praktikum/img_bahan_modul/' . $namaFilesBaru);
+            redirect('admin_home/tambah_modul');
+            return false;
+        }
 
-		return $namaFilesBaru;
-	}
+        $namaFilesBaru = "bahan_prak$praktikum-";
+        $namaFilesBaru .= uniqid();
+        $namaFilesBaru .= '.';
+        $namaFilesBaru .= $ekstensiGambar;
 
-	public function alert($kata_depan = "", $warna, $isi)
-	{
+        move_uploaded_file($tmpName, 'assets_praktikum/img_bahan_modul/' . $namaFilesBaru);
 
-		$alert = '<div class="alert alert-' . $warna . ' alert-dismissible fade show" role="alert">
+        return $namaFilesBaru;
+    }
+
+    public function alert($kata_depan = "", $warna, $isi)
+    {
+
+        $alert = '<div class="alert alert-' . $warna . ' alert-dismissible fade show" role="alert">
 		<strong>' . $kata_depan . '</strong> ' . $isi . '
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		  <span aria-hidden="true">&times;</span>
 		</button>
 	  	</div>';
 
-		return $alert;
-	}
+        return $alert;
+    }
 }
