@@ -54,12 +54,49 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Kelola Data Praktikan:</h6>
-                <a class="collapse-item" href="utilities-color.html">Lihat Data Praktikan</a>
-                <a class="collapse-item" href="utilities-color.html">Kelola Data Kelas</a>
+                <!-- <a class="collapse-item" href="utilities-color.html">Lihat Data Praktikan</a> -->
+                <a class="collapse-item" href="<?=base_url('Admin_kelolakelas')?>">Kelola Data Praktikan dan <br>
+                    Kelas</a>
 
             </div>
         </div>
     </li>
+
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kelolaAdmin" aria-expanded="true"
+            aria-controls="kelolaAdmin">
+            <i class="fas fa-users-cog"></i>
+            <span>Kelola Data Admin</span>
+        </a>
+        <div id="kelolaAdmin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Kelola Data Admin:</h6>
+                <!-- <a class="collapse-item" href="utilities-color.html">Lihat Data Praktikan</a> -->
+                <a class="collapse-item" href="<?=base_url('Admin_kelolaadmin')?>">Tambah Data Admin</a>
+
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#lihat_tugas" aria-expanded="true"
+            aria-controls="lihat_tugas">
+            <i class="fas fa-book"></i>
+            <span>Lihat Tugas</span>
+        </a>
+        <div id="lihat_tugas" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Kelola Data Admin:</h6>
+                <!-- <a class="collapse-item" href="utilities-color.html">Lihat Data Praktikan</a> -->
+                <a class="collapse-item" href="<?=base_url('Admin_kelolaadmin')?>">Lihat Tugas Praktikan</a>
+
+            </div>
+        </div>
+    </li>
+
 
 
 

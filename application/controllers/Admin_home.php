@@ -22,7 +22,7 @@ class Admin_home extends CI_Controller
 
         }
 
-        $info_asprak = $this->Asprak_model->get('tb_admin', ['id_user' => $this->session->userdata('id_user')])->row_array();
+        $info_asprak = $this->Asprak_model->get_where('tb_admin', ['id_user' => $this->session->userdata('id_user')])->row_array();
 
         // var_dump($info_asprak['foto_profile']);die();
         $this->session->set_userdata('foto_profile', $info_asprak['foto_profile']);
@@ -198,13 +198,13 @@ class Admin_home extends CI_Controller
     public function logout()
     {
 
-        // $this->session->sess_destroy();
+        $this->session->sess_destroy();
 
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('nim');
-        $this->session->unset_userdata('id_role');
-        $this->session->unset_userdata('id_user');
-        $this->session->unset_userdata('foto_profile');
+        // $this->session->unset_userdata('email');
+        // $this->session->unset_userdata('nim');
+        // $this->session->unset_userdata('id_role');
+        // $this->session->unset_userdata('id_user');
+        // $this->session->unset_userdata('foto_profile');
 
         redirect('auth');
     }

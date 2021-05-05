@@ -1,7 +1,7 @@
 <?php
 
 //config
-$config['base_url'] = base_url('admin_listmodul/index');
+
 $config['num_links'] = 1;
 
 //styling

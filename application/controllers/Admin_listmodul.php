@@ -46,8 +46,10 @@ class Admin_listmodul extends CI_Controller
         $this->db->like('judul_praktikum', $data['keyword']);
         $this->db->from('tb_praktikum');
         $config['total_rows'] = $this->db->count_all_results();
+
+        $config['base_url'] = base_url('admin_listmodul/index');
         $data['total_rows'] = $config['total_rows'];
-        $config['per_page'] = 3;
+        $config['per_page'] = 4;
 
         //initialize
         $this->pagination->initialize($config);

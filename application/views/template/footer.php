@@ -8,6 +8,7 @@
 <!-- Custom scripts for all pages-->
 <script src="<?=base_url('assets_template/')?>js/sb-admin-2.min.js"></script>
 
+
 <!-- Page level plugins -->
 <!-- <script src="<?=base_url('assets_template/')?>vendor/chart.js/Chart.min.js"></script> -->
 
@@ -56,7 +57,22 @@ $('.editbahan').on('click', function(e) {
 
 
 });
+
+$('.edit-kelas').on('click', function(e) {
+    var id_kelas = $(this).data('idkelas');
+    var nama_kelas = $(this).data('namakelas');
+
+
+    $("#modal-view #id_kelas").val(id_kelas);
+    $("#modal-view #nama_kelas").val(nama_kelas);
+
+
+
+});
 </script>
+
+
+
 
 
 
@@ -64,6 +80,96 @@ $('.editbahan').on('click', function(e) {
 </script>
 <script type="text/javascript" src="<?=base_url('assets_template/js/sweetalert/myscript.js')?>">
 </script>
+
+<script>
+$('.tombol-nonaktif').on('click', function(e) {
+
+    e.preventDefault();
+    const href = $(this).attr('href');
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger mr-2'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Nonaktifkan data mahasiswa",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, nonaktifkan data!',
+        cancelButtonText: 'Jangan, batalkan!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            document.location.href = href;
+
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Dibatalkan',
+                'Nonaktivasi Dibatalkan!',
+                'error'
+            )
+        }
+    });
+
+});
+
+$('.tombol-aktif').on('click', function(e) {
+
+    e.preventDefault();
+    const href = $(this).attr('href');
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger mr-2'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Aktifkan data mahasiswa",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, aktifkan data!',
+        cancelButtonText: 'Jangan, batalkan!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            document.location.href = href;
+
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+                'Dibatalkan',
+                'Aktivasi Dibatalkan!',
+                'error'
+            )
+        }
+    });
+
+});
+</script>
+
+<!-- Page level plugins -->
+<script src="<?=base_url('assets_template/')?>vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=base_url('assets_template/')?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="<?=base_url('assets_template/')?>js/demo/datatables-demo.js"></script>
+
 
 
 </html>

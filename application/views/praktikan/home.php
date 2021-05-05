@@ -35,7 +35,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Jumlah Modul</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$jumlah_modul?>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 Modul
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Jumlah Praktikan</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$jumlah_praktikan?>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 Praktikan
                                             </div>
                                         </div>
@@ -388,7 +388,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?=base_url('admin_home/logout')?>">Logout</a>
+                    <a class="btn btn-primary" href="<?=base_url('praktikan_home/logout')?>">Logout</a>
                 </div>
             </div>
         </div>

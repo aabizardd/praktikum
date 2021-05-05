@@ -67,7 +67,10 @@ class Auth extends CI_Controller
 
                         redirect('Admin_home');
                     } else {
-                        var_dump('kamu praktikan');die();
+
+                        $this->session->set_flashdata('flash-alert', 'Jangan Lupa untuk Lengkapi Data Pribadi Kamu Sebelum Mengumpulkan Tugas!');
+                        redirect('praktikan_home');
+
                     }
                 } else {
                     $pesan = $this->alert('Maaf!', 'danger', "Password Salah!");
