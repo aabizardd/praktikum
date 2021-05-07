@@ -161,4 +161,46 @@ class Asprak_model extends CI_model
         return $this->db->get($table, $limit, $start);
 
     }
+
+    public function get_pengumpulan_tugas($id_praktikum)
+    {
+
+        // SELECT * FROM tb_pengumpulan_tugas tpt JOIN tb_praktikum tp on(tpt.id_praktikum = tp.id_praktikum) RIGHT JOIN tb_praktikan tpk on(tpt.id_praktikan = tpk.id_praktikan)
+
+        $this->db->select('*');
+        $this->db->from('tb_pengumpulan_tugas tpt');
+        $this->db->join('tb_praktikum tp', 'tpt.id_praktikum = tp.id_praktikum');
+        $this->db->join('tb_praktikan tpk', 'tpt.id_praktikan = tpk.id_praktikan');
+        $this->db->join('tb_kelas tk', 'tpk.id_kelas = tk.id_kelas');
+        $this->db->join('tb_user tu', 'tpk.id_user = tu.id_user');
+        $this->db->where('tpt.id_praktikum', $id_praktikum);
+        $this->db->order_by('tk.id_kelas', 'DESC');
+        // $this->db->limit(2, 0);
+        return $this->db->get();
+
+    }
+
+    public function get_not_pengumpulan_tugas($data)
+    {
+
+        // SELECT * FROM tb_pengumpulan_tugas tpt JOIN tb_praktikum tp on(tpt.id_praktikum = tp.id_praktikum) RIGHT JOIN tb_praktikan tpk on(tpt.id_praktikan = tpk.id_praktikan)
+
+        // var_dump(count($data));die();
+
+        $ct_data = count($data);
+
+        $this->db->select('*');
+        $this->db->from('tb_praktikan tpk');
+        $this->db->join('tb_kelas tk', 'tpk.id_kelas = tk.id_kelas', 'left');
+        $this->db->join('tb_user tu', 'tpk.id_user = tu.id_user');
+
+        if ($ct_data > 0) {
+            $this->db->where_not_in('tpk.id_praktikan', $data);
+        }
+
+        $this->db->order_by('tk.id_kelas', 'DESC');
+        // $this->db->limit(2, 0);
+        return $this->db->get();
+
+    }
 }

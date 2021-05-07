@@ -1,5 +1,6 @@
 const flashData = $('.flash-data').data('flashdata');
 const flashDataError = $('.flash-data-error').data('flashdata');
+const flashDataAlert = $('.flash-data-alert').data('flashdata');
 
 // console.log(flashData);
 
@@ -16,6 +17,17 @@ if(flashDataError){
 		icon: 'error',
 		title: 'Gagal!',
 		text: flashDataError
+	  });
+}
+
+if(flashDataAlert){
+	Swal.fire({
+		icon: 'info',
+		title: 'Perhatian!',
+		html:
+    'Segera Lengkapi Data Anda' +
+    '<a href="http://localhost/praktikum/praktikan_profile"> klik disini</a> ' +
+    'Untuk Edit Profil Anda',
 	  });
 }
 

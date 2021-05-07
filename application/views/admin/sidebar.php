@@ -91,7 +91,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Kelola Data Admin:</h6>
                 <!-- <a class="collapse-item" href="utilities-color.html">Lihat Data Praktikan</a> -->
-                <a class="collapse-item" href="<?=base_url('Admin_kelolaadmin')?>">Lihat Tugas Praktikan</a>
+                <a class="collapse-item" href="<?=base_url('Admin_lihattugas')?>">Lihat Tugas Praktikan</a>
 
             </div>
         </div>

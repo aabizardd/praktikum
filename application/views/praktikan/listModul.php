@@ -17,19 +17,12 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid mb-5">
 
-                    <a href="<?=base_url('admin_kelolakelas')?>" class="btn btn-danger mb-2"><i
-                            class="fas fa-arrow-left"></i>
-                        Kembali</a>
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">List Praktikan <strong class="text-primary">Kelas
-                                <?=$kelas['nama_kelas']?></strong> </h1>
+                        <h1 class="h3 mb-0 text-gray-800">List Modul Praktikum</h1>
 
 
-                        <form
-                            action="<?=base_url('admin_kelolakelas/show_praktikan_by_kelas/') . $this->uri->segment(3);?>"
-                            method="post">
+                        <form action="<?=base_url('Praktikan_listmodul');?>" method="post">
                             <div class="row mt-2">
                                 <div class="col-9">
                                     <input type="text" class="form-control" placeholder="Keyword..." autocomplete="off"
@@ -48,55 +41,42 @@
                     </div>
 
                     <div class="flash-data" data-flashdata="<?=$this->session->flashdata('flash');?>"></div>
-                    <div class="flash-data-error" data-flashdata="<?=$this->session->flashdata('flash-error');?>"></div>
+
 
                     <div class="card">
 
                         <div class="card-body">
 
-
-
                             <div class="row">
 
-                                <?php if (empty($classes)): ?>
+                                <?php if (empty($moduls)): ?>
                                 <img src="<?=base_url('assets_praktikum/img_lain/no_file.png')?>" alt="" width="500"
                                     class="rounded mx-auto d-block">
                                 <?php endif;?>
 
-                                <?php foreach ($classes as $class): ?>
+                                <?php foreach ($moduls as $modul): ?>
 
 
 
 
-                                <div class="col-xl-2 col-lg-4 col-6 mb-3">
+                                <div class="col-xl-3 col-lg-6 mb-3">
                                     <div class="card">
                                         <span class="ml-3 mt-3 text-white"
                                             style="position: absolute;background-color: #004080;border-radius: 50%;width: 35px;height: 35px;text-align: center;font-size: 15px;padding-top: 7px;">
                                             <?=++$start;?></span>
-
-                                        <div class="dropdown no-arrow position-absolute bg-white mt-3 mr-3"
-                                            style="border-radius: 50%;width: 35px;height: 35px;text-align: center;font-size: 15px;padding-top: 7px; margin-right: 0;right: 0;">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                aria-labelledby="dropdownMenuLink">
-                                                <div class="dropdown-header">Dropdown Header:</div>
-
-
-                                            </div>
-
-                                        </div>
-
                                         <img class=" card-img-top"
-                                            src="<?=base_url('assets_praktikum/img_profile/praktikan/') . $class['foto_profile']?>"
-                                            alt="Card image cap" height="200">
+                                            src="https://ct.counseling.org/wp-content/uploads/2015/01/BooksAppleSchool.jpg"
+                                            alt="Card image cap">
                                         <div class="card-body">
                                             <p class="card-title">
-                                                <strong class="text-justify"><?=$class['nama_lengkap']?></strong>
+                                                <strong class="text-justify"><?=$modul['judul_praktikum']?></strong>
                                             </p>
+                                            <p style="font-size: 12px;"><?=$modul['tujuan_praktikum']?></p>
+
+                                            <a href="<?=base_url('praktikan_listmodul/detail_modul/') . $modul['id_praktikum']?>"
+                                                class="btn btn-primary mt-2"><i class="fas fa-info-circle"></i>
+                                                Detail</a>
+
 
 
                                         </div>
@@ -117,6 +97,10 @@
                         </div>
 
                     </div>
+
+
+
+
 
 
                 </div>
@@ -146,8 +130,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
-
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -162,81 +144,10 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?=base_url('admin_home/logout')?>">Logout</a>
+                    <a class="btn btn-primary" href="<?=base_url('praktikan_home/logout')?>">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>

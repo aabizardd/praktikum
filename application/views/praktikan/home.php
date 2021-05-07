@@ -14,6 +14,14 @@
 
                 <?php include "topbar.php";?>
 
+                <?php if (is_null($this->session->userdata('nama_praktikan')) || is_null($this->session->userdata('kelas')) || is_null($this->session->userdata('kelompok'))): ?>
+
+                <div class="flash-data-alert" data-flashdata="<?=$this->session->flashdata('flash-alert');?>"></div>
+
+                <?php endif;?>
+
+
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -36,7 +44,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Jumlah Modul</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                Modul
+                                                <?=$jumlah_modul?> Modul
                                             </div>
                                         </div>
                                         <div class="col-auto">

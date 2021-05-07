@@ -57,19 +57,19 @@
                  aria-haspopup="true" aria-expanded="false">
                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">
 
-                     <?php if (is_null($this->session->userdata('nama_lengkap'))): ?>
+                     <?php if (is_null($this->session->userdata('nama_praktikan'))): ?>
 
                      Praktikan Baru
 
                      <?php else: ?>
 
-                     <?=$this->session->userdata('nama_lengkap')?>
+                     <?=$this->session->userdata('nama_praktikan')?>
 
                      <?php endif;?>
 
                  </span>
                  <img class="img-profile rounded-circle"
-                     src="<?=base_url('assets_praktikum/')?>img_profile/asprak/<?=$this->session->userdata('foto_profile')?>">
+                     src="<?=base_url('assets_praktikum/')?>img_profile/praktikan/<?=$this->session->userdata('foto_profile')?>">
              </a>
              <!-- Dropdown - User Information -->
              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

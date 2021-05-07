@@ -27,6 +27,7 @@
                     </div>
 
                     <div class="flash-data" data-flashdata="<?=$this->session->flashdata('flash');?>"></div>
+                    <div class="flash-data-alert" data-flashdata="<?=$this->session->flashdata('flash-alert');?>"></div>
                     <div class="flash-data-error" data-flashdata="<?=$this->session->flashdata('flash-error');?>"></div>
 
                     <!-- Content Row -->
@@ -59,19 +60,30 @@
 
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
+
                                         <div class="tab-pane fade show active" id="home" role="tabpanel"
                                             aria-labelledby="home-tab">
 
                                             <div class="row mt-2">
                                                 <div class="col-sm-4">
 
-                                                    <img src="<?=base_url('assets_praktikum/')?>img_profile/asprak/<?=$this->session->userdata('foto_profile')?>"
+                                                    <img src="<?=base_url('assets_praktikum/')?>img_profile/praktikan/<?=$this->session->userdata('foto_profile')?>"
                                                         alt="" class="rounded mx-auto d-block img-preview" width="100%"
                                                         height="400" id="gambar">
 
                                                 </div>
 
                                                 <div class="col-sm-8 mt-2">
+
+                                                    <?=form_error('kelas', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+													</button></div>');?>
+
+                                                    <?=form_error('kelompok', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+													<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+													</button></div>');?>
 
                                                     <?=form_error('nama_lengkap', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
 													<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -88,7 +100,7 @@
 													<span aria-hidden="true">&times;</span>
 													</button></div>');?>
 
-                                                    <form method="POST" action="<?=base_url('admin_profile/')?>"
+                                                    <form method="POST" action="<?=base_url('praktikan_profile/')?>"
                                                         enctype="multipart/form-data">
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Nama Lengkap</label>
@@ -97,6 +109,7 @@
                                                                 value="<?=$info_asprak['nama_lengkap']?>">
 
                                                         </div>
+
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">NIM</label>
                                                             <input type="text" class="form-control" id="nim"
@@ -113,7 +126,34 @@
 
                                                         </div>
 
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Kelas</label>
 
+                                                            <select class="custom-select" id="inputGroupSelect02"
+                                                                name="kelas" id="kelas">
+                                                                <option>Pilih...</option>
+
+                                                                <?php foreach ($classes as $class): ?>
+
+                                                                <option value="<?=$class->id_kelas?>"
+                                                                    <?=$info_praktikan['id_kelas'] == $class->id_kelas ? "selected" : ""?>>
+                                                                    <?=$class->nama_kelas?>
+                                                                </option>
+
+                                                                <?php endforeach;?>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">Kelompok</label>
+                                                            <input type="text" class="form-control" id="kelompok"
+                                                                name="kelompok" autocomplete="off"
+                                                                value="<?=$info_asprak['kelompok']?>">
+                                                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                                email with anyone else.</small> -->
+                                                        </div>
 
 
                                                         <input type="hidden" id="foto_old" name="foto_bahan"
@@ -178,7 +218,7 @@
 													</button></div>');?>
 
                                                     <form method="POST"
-                                                        action="<?=base_url('admin_profile/update_password')?>">
+                                                        action="<?=base_url('praktikan_profile/update_password')?>">
 
                                                         <div class="form-group">
                                                             <label for="exampleInputEmail1">Passwod Lama</label>
@@ -259,86 +299,13 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="<?=base_url('admin_home/logout')?>">Logout</a>
+                            <a class="btn btn-primary" href="<?=base_url('praktikan_home/logout')?>">Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Bahan Praktikum</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="modal-view">
 
-                            <div class="row">
-                                <div class="col-sm-5">
-
-                                    <img src="<?=base_url('assets_praktikum/img_lain/no_file.png')?>" alt=""
-                                        class="rounded mx-auto d-block img-preview" width="300" height="300"
-                                        id="gambar">
-
-                                </div>
-
-                                <div class="col-sm-7 mt-2">
-
-                                    <form method="POST" action="<?=base_url('admin_listmodul/update_bahan/')?>"
-                                        enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Judul Bahan</label>
-                                            <input type="text" class="form-control" id="judul"
-                                                aria-describedby="emailHelp" name="judul_bahan" autocomplete="off">
-                                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your
-                                                email with anyone else.</small> -->
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Keteranan Bahan</label>
-                                            <input type="text" class="form-control" id="keterangan"
-                                                aria-describedby="emailHelp" name="keterangan_bahan" autocomplete="off">
-                                            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your
-                                                email with anyone else.</small> -->
-                                        </div>
-
-                                        <input type="hidden" value="asdsa" id="id_bahan" name="id_bahan">
-                                        <input type="hidden" id="foto_old" name="foto_bahan">
-                                        <input type="hidden" name="id_praktikum" value="<?=$this->uri->segment(3)?>">
-
-
-
-                                        <div class="form-group">
-
-                                            <label for="exampleInputEmail1">Foto Barang</label>
-
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="file" id="sampul"
-                                                    aria-describedby="inputGroupFileAddon01" onchange="preview_img()">
-                                                <label class="custom-file-label" for="inputGroupFile01">
-                                                    Choose file</label>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn btn-primary float-right" type="submit" name="submit">Simpan
-                                            Perubahan</button>
-
-
-
-                                    </form>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <!-- Footer -->
@@ -382,6 +349,9 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+
+
 
 
 
