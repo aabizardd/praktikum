@@ -23,12 +23,12 @@ class Auth extends CI_Controller
 
     public function index()
     {
-
+        $data['title'] = "Login Aplikasi";
         $this->form_validation->set_rules('nim', 'NIM', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
+            $this->load->view('template/header', $data);
             $this->load->view('auth/login');
             $this->load->view('template/footer');
         } else {
@@ -97,6 +97,7 @@ class Auth extends CI_Controller
     public function registration()
     {
 
+        $data['title'] = "Registrasi Aplikasi";
         $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[tb_user.nim]', [
             'is_unique' => "NIM ini sudah digunakan!",
         ]);
@@ -110,7 +111,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
+            $this->load->view('template/header', $data);
             $this->load->view('auth/registration');
             $this->load->view('template/footer');
         } else {
