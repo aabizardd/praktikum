@@ -36,9 +36,10 @@ class Praktikan_home extends CI_Controller
     public function index()
     {
 
+        $data['title'] = "Praktikan Home";
         $data['jumlah_modul'] = $this->praktikan->count_all_results('tb_praktikum');
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('praktikan/home', $data);
         $this->load->view('template/footer');
 

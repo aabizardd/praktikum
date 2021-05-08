@@ -3,7 +3,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?php include "sidebar.php"; ?>
+        <?php include "sidebar.php";?>
 
 
         <!-- Content Wrapper -->
@@ -12,7 +12,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                <?php include "topbar.php"; ?>
+                <?php include "topbar.php";?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid mb-5">
@@ -27,30 +27,40 @@
                         <div class=" col-lg-6 mt-2">
 
 
-                            <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
+                            <div class="flash-data" data-flashdata="<?=$this->session->flashdata('flash');?>"></div>
 
 
 
 
-                            <?= form_error('judul_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?=form_error('judul_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>'); ?>
+									</button></div>');?>
 
-                            <?= form_error('praktikum_ke', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?=form_error('praktikum_ke', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>'); ?>
+									</button></div>');?>
 
-                            <?= form_error('tujuan_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?=form_error('tujuan_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>'); ?>
+									</button></div>');?>
 
-                            <?= form_error('materi_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?=form_error('tanggal_deadline', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
-									</button></div>'); ?>
+									</button></div>');?>
+
+                            <?=form_error('jam_deadline', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button></div>');?>
+
+                            <?=form_error('materi_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button></div>');?>
 
                             <div class="card">
                                 <div class="card-header">
@@ -69,14 +79,31 @@
                                             <label for="praktikum_ke">Praktikum Ke</label>
                                             <input type="number" class="form-control" id="praktikum_ke"
                                                 placeholder="Contoh: 2" name="praktikum_ke">
-                                            <small id="emailHelp" class="form-text text-muted">Inputan harus berupa
-                                                angka</small>
+                                            <small id="emailHelp" class="form-text text-muted"><i class="text-danger">*
+                                                    Inputan
+                                                    harus berupa
+                                                    angka</i></small>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="tujuan_praktikum">Tujuan Praktikum</label>
                                             <input type="text" class="form-control" id="tujuan_praktikum"
                                                 placeholder="Tujuan Praktikum" name="tujuan_praktikum">
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Tanggal Deadline</label>
+                                                <input type="date" class="form-control" id="inputEmail4"
+                                                    placeholder="Tanggal Deadline" name="tanggal_deadline"
+                                                    id="tanggal_deadline">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPassword4">Jam</label>
+                                                <input type="time" class="form-control" id="inputPassword4"
+                                                    placeholder="Atur Jam Pengumpulan" name="jam_deadline"
+                                                    id="jam_deadline">
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -100,7 +127,7 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <form action="<?= base_url('admin_tambahmodul/tambahDataBahan') ?>" method="POST"
+                                    <form action="<?=base_url('admin_tambahmodul/tambahDataBahan')?>" method="POST"
                                         class="insert-from" id="insert_form" enctype="multipart/form-data">
 
                                         <div class="form-group">
@@ -109,11 +136,11 @@
                                                 <select class="custom-select" id="inputGroupSelect02"
                                                     name="id_praktikum" required>
                                                     <option value="" selected>Pilih...</option>
-                                                    <?php foreach ($modul_praktikum as $item) : ?>
-                                                    <option value="<?= $item->id_praktikum ?>">
-                                                        <?= "Praktikum " . $item->id_praktikum . " (" . $item->judul_praktikum . ")" ?>
+                                                    <?php foreach ($modul_praktikum as $item): ?>
+                                                    <option value="<?=$item->id_praktikum?>">
+                                                        <?="Praktikum " . $item->id_praktikum . " (" . $item->judul_praktikum . ")"?>
                                                     </option>
-                                                    <?php endforeach; ?>
+                                                    <?php endforeach;?>
 
                                                 </select>
 
@@ -236,16 +263,18 @@
 
 
 
-       
-         </div>
+
+                </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="<?= base_url('admin_home/logout') ?>">Logout</a>
+                    <a class="btn btn-primary" href="<?=base_url('admin_home/logout')?>">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 
 

@@ -29,6 +29,8 @@ class Praktikan_listmodul extends CI_Controller
 
     public function index()
     {
+
+        $data['title'] = "List Modul Praktikum";
         //load libraray
         $this->load->library('pagination');
 
@@ -58,7 +60,7 @@ class Praktikan_listmodul extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         $data['moduls'] = $this->praktikan->get_limit_modul('tb_praktikum', $config['per_page'], $data['start'], $data['keyword'])->result_array();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('praktikan/listModul', $data);
         $this->load->view('template/footer', $data);
     }
@@ -66,6 +68,7 @@ class Praktikan_listmodul extends CI_Controller
     public function detail_modul($id)
     {
 
+        $data['title'] = "Pengumpulan Modul Praktikum";
         $data['modul'] = $this->praktikan->get_where('tb_praktikum', ['id_praktikum' => $id])->row_array();
         $where_2 = ['id_praktikum' => $id];
 
@@ -80,7 +83,7 @@ class Praktikan_listmodul extends CI_Controller
 
         $data['is_assign'] = $is_assign;
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('praktikan/detailModul', $data);
         $this->load->view('template/footer');
 

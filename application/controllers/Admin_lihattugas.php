@@ -28,7 +28,7 @@ class Admin_lihattugas extends CI_Controller
 
     public function index()
     {
-
+        $data['title'] = "Lihat Tugas (Pilih Modul)";
         //load libraray
         $this->load->library('pagination');
 
@@ -58,13 +58,15 @@ class Admin_lihattugas extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         $data['moduls'] = $this->asprak->get_limit('tb_praktikum', $config['per_page'], $data['start'], $data['keyword'])->result_array();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('admin/lihat_tugas', $data);
         $this->load->view('template/footer');
     }
 
     public function praktikan_tugas($id)
     {
+
+        $data['title'] = "Lihat Pengumpulan Tugas";
 
         $data['praktikum'] = $this->asprak->get_where('tb_praktikum', ['id_praktikum' => $id])->row_array();
 
@@ -88,7 +90,7 @@ class Admin_lihattugas extends CI_Controller
 
         $data['not_assign'] = $this->asprak->get_not_pengumpulan_tugas($data_nama)->result();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('admin/tabel_pengumpulan', $data);
         $this->load->view('template/footer');
     }

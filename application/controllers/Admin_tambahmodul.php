@@ -28,16 +28,19 @@ class Admin_tambahmodul extends CI_Controller
 
     public function index()
     {
+        $data['title'] = "Tambah Modul Praktikum";
 
         $this->form_validation->set_rules('judul_praktikum', 'Judul Praktikum', 'required');
         $this->form_validation->set_rules('praktikum_ke', 'Praktikum Berapa', 'required');
         $this->form_validation->set_rules('tujuan_praktikum', 'Tujuan Praktikum', 'required');
+        $this->form_validation->set_rules('tanggal_deadline', 'Tanggal Deadline', 'required');
+        $this->form_validation->set_rules('jam_deadline', 'Jam Deadline', 'required');
         $this->form_validation->set_rules('materi_praktikum', 'Materi Praktikum', 'required');
 
         $data['modul_praktikum'] = $this->Asprak_model->get('tb_praktikum')->result();
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
+            $this->load->view('template/header', $data);
             $this->load->view('admin/tambahModul', $data);
             $this->load->view('template/footer');
         } else {
@@ -51,12 +54,19 @@ class Admin_tambahmodul extends CI_Controller
         $judul_praktikum = $this->input->post('judul_praktikum');
         $praktikum_ke = $this->input->post('praktikum_ke');
         $tujuan_praktikum = $this->input->post('tujuan_praktikum');
+        $tanggal_deadline = $this->input->post('tanggal_deadline');
+        $jam_deadline = $this->input->post('jam_deadline');
+
+        // var_dump($jam_deadline);die();
+
         $materi_praktikum = $this->input->post('materi_praktikum');
 
         $data = [
             'judul_praktikum' => $judul_praktikum,
             'praktikum_ke' => $praktikum_ke,
             'tujuan_praktikum' => $tujuan_praktikum,
+            'deadline_tanggal' => $tanggal_deadline,
+            'deadline_jam' => $jam_deadline,
             'materi_praktikum' => $materi_praktikum,
         ];
 

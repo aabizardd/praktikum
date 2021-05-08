@@ -68,14 +68,70 @@
                                             src="https://ct.counseling.org/wp-content/uploads/2015/01/BooksAppleSchool.jpg"
                                             alt="Card image cap">
                                         <div class="card-body">
+
+
+
                                             <p class="card-title">
                                                 <strong class="text-justify"><?=$modul['judul_praktikum']?></strong>
+
                                             </p>
                                             <p style="font-size: 12px;"><?=$modul['tujuan_praktikum']?></p>
 
+                                            <!-- $date=date_create("2021-05-09 21:13");
+                                            echo date_format($date,"d-F-Y H:i:s"); -->
+
+                                            <?php
+$date = date_create($modul['deadline_tanggal'] . " " . $modul['deadline_jam']);
+
+$today = date("Y-m-d H:i:s");
+$expire = date($modul['deadline_tanggal'] . " " . $modul['deadline_jam']); //from database
+
+$today_time = strtotime($today);
+$expire_time = strtotime($expire);
+
+?>
+
+                                            <span class="btn btn-warning mt-2" style="font-size: 10px;"><i
+                                                    class="fas fa-clock"></i>
+                                                <?=date_format($date, "d-F-Y H:i:s")?>
+                                            </span>
+
+
+                                            <br>
+
+                                            <!-- $today = date("Y-m-d H:i:s");
+                                            $expire = date("2021-05-08"); //from database
+
+                                            $today_time = strtotime($today);
+                                            $expire_time = strtotime($expire);
+
+                                            if ($expire_time >= $today_time) {
+
+                                            echo "masih ada waktu";
+
+                                            }else{
+                                            echo "telat";
+                                            } -->
+
+
+
+                                            <?php if ($expire_time >= $today_time): ?>
+
                                             <a href="<?=base_url('praktikan_listmodul/detail_modul/') . $modul['id_praktikum']?>"
-                                                class="btn btn-primary mt-2"><i class="fas fa-info-circle"></i>
-                                                Detail</a>
+                                                class="btn btn-primary mt-2"><i class="fas fa-cloud-upload-alt"></i>
+                                                Kumpulkan
+                                            </a>
+                                            <?php else: ?>
+
+                                            <a class="btn btn-danger mt-2"><i class="fas fa-exclamation-circle"></i>
+                                                Telat
+                                            </a>
+
+                                            <?php endif;?>
+
+
+
+
 
 
 
@@ -149,5 +205,6 @@
             </div>
         </div>
     </div>
+
 
 </body>

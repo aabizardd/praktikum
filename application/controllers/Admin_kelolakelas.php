@@ -26,6 +26,8 @@ class Admin_kelolakelas extends CI_Controller
 
     public function index()
     {
+
+        $data['title'] = "Kelola Kelas Praktikan";
         //load libraray
         $this->load->library('pagination');
 
@@ -57,7 +59,7 @@ class Admin_kelolakelas extends CI_Controller
 
         $data['praktikans'] = $this->asprak->getPraktikansAll()->result();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('admin/listKelas', $data);
         $this->load->view('template/footer', $data);
     }
@@ -165,7 +167,7 @@ class Admin_kelolakelas extends CI_Controller
 
     public function show_praktikan_by_kelas($id_kelas)
     {
-
+        $data['title'] = "Data Praktikan per Kelas";
         //load libraray
         $this->load->library('pagination');
 
@@ -205,7 +207,7 @@ class Admin_kelolakelas extends CI_Controller
 
         $data['kelas'] = $this->asprak->get_where('tb_kelas', ['id_kelas' => $id_kelas])->row_array();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('admin/listPraktikan', $data);
         $this->load->view('template/footer', $data);
 

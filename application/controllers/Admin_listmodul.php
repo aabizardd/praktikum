@@ -28,6 +28,8 @@ class Admin_listmodul extends CI_Controller
 
     public function index()
     {
+
+        $data['title'] = "List Modul Praktikum";
         //load libraray
         $this->load->library('pagination');
 
@@ -57,20 +59,22 @@ class Admin_listmodul extends CI_Controller
         $data['start'] = $this->uri->segment(3);
         $data['moduls'] = $this->asprak->get_limit('tb_praktikum', $config['per_page'], $data['start'], $data['keyword'])->result_array();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('admin/listModul', $data);
         $this->load->view('template/footer', $data);
     }
 
     public function detail_modul($id)
     {
-
+        $data['title'] = "Detail Modul Praktikum";
         $where_1 = ['id_praktikum' => $id];
         $data['detail_modul'] = $this->asprak->get_where('tb_praktikum', $where_1)->row_array();
 
         $this->form_validation->set_rules('judul_praktikum', 'Judul Praktikum', 'required');
         $this->form_validation->set_rules('praktikum_ke', 'Praktikum Berapa', 'required');
         $this->form_validation->set_rules('tujuan_praktikum', 'Tujuan Praktikum', 'required');
+        $this->form_validation->set_rules('tanggal_deadline', 'Tanggal Deadline', 'required');
+        $this->form_validation->set_rules('jam_deadline', 'Jam Deadline', 'required');
         $this->form_validation->set_rules('materi_praktikum', 'Materi Praktikum', 'required');
 
         $data['modul_praktikum'] = $this->asprak->get('tb_praktikum')->result();
@@ -80,7 +84,7 @@ class Admin_listmodul extends CI_Controller
         $data['bahan_praktikum'] = $this->asprak->get_where('tb_bahan_praktikum', $where_2)->result();
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
+            $this->load->view('template/header', $data);
             $this->load->view('admin/detailModul', $data);
             $this->load->view('template/footer');
         } else {
@@ -189,12 +193,16 @@ class Admin_listmodul extends CI_Controller
         $praktikum_ke = $this->input->post('praktikum_ke');
         $tujuan_praktikum = $this->input->post('tujuan_praktikum');
         $materi_praktikum = $this->input->post('materi_praktikum');
+        $tanggal_deadline = $this->input->post('tanggal_deadline');
+        $jam_deadline = $this->input->post('jam_deadline');
 
         $data = [
             'judul_praktikum' => $judul_praktikum,
             'praktikum_ke' => $praktikum_ke,
             'tujuan_praktikum' => $tujuan_praktikum,
             'materi_praktikum' => $materi_praktikum,
+            'deadline_tanggal' => $tanggal_deadline,
+            'deadline_jam' => $jam_deadline,
         ];
 
         $where = ['id_praktikum' => $id];

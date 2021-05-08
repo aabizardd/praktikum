@@ -34,6 +34,7 @@ class Admin_home extends CI_Controller
     public function index()
     {
 
+        $data['title'] = "Admin Home";
         $data['test'] = "hello";
 
         $data['jumlah_praktikan'] = $this->Asprak_model->count_all_results('tb_praktikan');

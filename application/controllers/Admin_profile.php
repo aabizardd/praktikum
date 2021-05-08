@@ -26,7 +26,7 @@ class Admin_profile extends CI_Controller
 
     public function index()
     {
-
+        $data['title'] = "Profil Admin";
         $data['info_asprak'] = $this->asprak->getDetailInfoAsprak()->row_array();
         $nim = $this->input->post('nim');
         $email = $this->input->post('email');
@@ -53,7 +53,7 @@ class Admin_profile extends CI_Controller
         }
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
+            $this->load->view('template/header', $data);
             $this->load->view('admin/admin_profile', $data);
             $this->load->view('template/footer');
         } else {

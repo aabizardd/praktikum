@@ -47,6 +47,16 @@
 									<span aria-hidden="true">&times;</span>
 									</button></div>');?>
 
+                    <?=form_error('tanggal_deadline', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button></div>');?>
+
+                    <?=form_error('jam_deadline', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button></div>');?>
+
                     <?=form_error('materi_praktikum', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 	<strong>Sorry!</strong> ', '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
@@ -109,6 +119,22 @@
                                             <input type="text" class="form-control" id="tujuan_praktikum"
                                                 placeholder="Tujuan Praktikum" name="tujuan_praktikum"
                                                 autocomplete="off" value="<?=$detail_modul['tujuan_praktikum']?>">
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Tanggal Deadline</label>
+                                                <input type="date" class="form-control" id="inputEmail4"
+                                                    placeholder="Tanggal Deadline" name="tanggal_deadline"
+                                                    id="tanggal_deadline"
+                                                    value="<?=$detail_modul['deadline_tanggal']?>">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPassword4">Jam</label>
+                                                <input type="time" class="form-control" id="inputPassword4"
+                                                    placeholder="Atur Jam Pengumpulan" name="jam_deadline"
+                                                    id="jam_deadline" value="<?=$detail_modul['deadline_jam']?>">
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -416,6 +442,8 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+
 
 
 

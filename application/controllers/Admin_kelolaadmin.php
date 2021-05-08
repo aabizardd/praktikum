@@ -26,6 +26,8 @@ class Admin_kelolaadmin extends CI_Controller
 
     public function index()
     {
+
+        $data['title'] = "Kelola Admin (Asprak)";
         //load libraray
         $this->load->library('pagination');
 
@@ -58,7 +60,7 @@ class Admin_kelolaadmin extends CI_Controller
 
         // $data['praktikans'] = $this->asprak->getPraktikansAll()->result();
 
-        $this->load->view('template/header');
+        $this->load->view('template/header', $data);
         $this->load->view('admin/listAdmin', $data);
         $this->load->view('template/footer', $data);
     }

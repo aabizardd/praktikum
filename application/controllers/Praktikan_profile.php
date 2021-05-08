@@ -27,6 +27,8 @@ class Praktikan_profile extends CI_Controller
     public function index()
     {
 
+        $data['title'] = "Profil Praktikan";
+
         $data['info_asprak'] = $this->praktikan->getDetailInfoPraktikan()->row_array();
         $nim = $this->input->post('nim');
         $email = $this->input->post('email');
@@ -62,7 +64,7 @@ class Praktikan_profile extends CI_Controller
         $data['classes'] = $this->praktikan->get('tb_kelas')->result();
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('template/header');
+            $this->load->view('template/header', $data);
             $this->load->view('praktikan/praktikan_profile', $data);
             $this->load->view('template/footer');
         } else {
