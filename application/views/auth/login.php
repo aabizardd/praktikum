@@ -12,7 +12,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block"
-                                style="background-image: url(https://cdn1.vectorstock.com/i/1000x1000/93/45/study-icons-vector-4339345.jpg); background-repeat: no-repeat;background-size: 100% 100%;">
+                                style="background-image: url(https://img.freepik.com/free-vector/kids-online-lessons_52683-36818.jpg?size=626&ext=jpg); background-repeat: no-repeat;background-size: 100% 100%;">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
